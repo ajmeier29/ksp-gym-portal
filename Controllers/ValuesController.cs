@@ -14,7 +14,7 @@ namespace ksp_portal.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "Hello World 1", "Hello World 2" };
+            return new string[] { "Hello World one", "Hello World 2" };
         }
 
         // GET api/values/5
