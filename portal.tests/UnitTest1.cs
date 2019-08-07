@@ -12,6 +12,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
+            // line added for github build run test
             Assert.Pass();
         }
     }
