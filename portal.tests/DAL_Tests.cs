@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using ksp_portal.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Tests
 {
@@ -16,7 +17,7 @@ namespace Tests
         {
             ValuesController vc = new ValuesController("hello world");
             var test = vc.Get();
-            
+
             Assert.Pass();
         }
     }
