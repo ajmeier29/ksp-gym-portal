@@ -10,6 +10,12 @@ namespace ksp_portal.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private string _testvar;
+        public ValuesController(){ }
+
+        public ValuesController (string testVar){
+            _testvar = testVar;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
