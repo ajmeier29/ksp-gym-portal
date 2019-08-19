@@ -15,7 +15,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            ValuesController vc = new ValuesController("hello world");
+            ValuesController vc = new ValuesController();
             var test = vc.Get();
 
             Assert.Pass();

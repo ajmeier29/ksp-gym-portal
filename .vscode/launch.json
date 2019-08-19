@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": ".NET Core Unit Tests",
+        "name": ".NET Core Web API",
         "type": "coreclr",
         "request": "launch",
         "preLaunchTask": "build",
-        "program": "${workspaceFolder}/portal.tests/bin/Debug/netcoreapp2.2/portal.tests.dll",
+        "program": "${workspaceFolder}/portal.webapi/bin/Debug/netcoreapp2.2/ksp-portal.dll",
         "args": [],
         "cwd": "${workspaceFolder}",
         "stopAtEntry": false,
