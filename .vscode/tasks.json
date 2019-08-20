@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ksp-portal.csproj"
+                "${workspaceFolder}/portal.webapi/ksp-portal.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/ksp-portal.csproj"
+                "${workspaceFolder}/portal.webapi/ksp-portal.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/ksp-portal.csproj"
+                "${workspaceFolder}/portal.webapi/ksp-portal.csproj"
             ],
             "problemMatcher": "$tsc"
         }
