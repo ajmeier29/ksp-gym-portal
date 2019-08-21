@@ -21,9 +21,9 @@ namespace ksp_portal.Services
         public string BuildConnectionString()
         {
             _connectionString = _configuration["ConnectionString"];
-            _connectionString = _connectionString.Replace("<<db_username>>", _configuration["db_username"]);
-            _connectionString = _connectionString.Replace("<<password>>", _configuration["password"]);
-            _connectionString = _connectionString.Replace("<<hostname>>", _configuration["hostname"]);
+            _connectionString = _connectionString.Replace("[[db_username]]", _configuration["db_username"]);
+            _connectionString = _connectionString.Replace("[[password]]", _configuration["password"]);
+            _connectionString = _connectionString.Replace("[[hostname]]", _configuration["hostname"]);
             return _connectionString;
         }
 
