@@ -21,7 +21,7 @@ namespace portal.tests
             try
             {
                 _configuration = new ConfigurationBuilder()
-                    .AddJsonFile("mongodbSettings.json", false, true)
+                    .AddJsonFile("mongodbSettings.json", optional: true, true)
                     .Build();
             }
             catch (FileNotFoundException)
