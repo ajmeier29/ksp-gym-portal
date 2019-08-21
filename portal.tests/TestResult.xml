@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" name="portal.tests.dll" fullname="portal.tests.dll" testcasecount="1" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.072864" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" random-seed="725569403">
+<test-run id="2" name="portal.tests.dll" fullname="portal.tests.dll" testcasecount="1" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.057968" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" random-seed="2133705461">
   <command-line><![CDATA["/Users/andy/Documents/Visual Studio 2019/Projects/ksp/webfiles/ksp-portal/portal.tests/bin/Debug/netcoreapp2.2/portal.tests.dll"]]></command-line>
   <filter />
-  <test-suite type="Assembly" id="1002" name="portal.tests.dll" fullname="portal.tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.072864" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+  <test-suite type="Assembly" id="1002" name="portal.tests.dll" fullname="portal.tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.057968" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
     <environment framework-version="3.11.0.0" clr-version="4.0.30319.42000" os-version="Darwin 18.7.0 Darwin Kernel Version 18.7.0: Thu Jun 20 18:42:21 PDT 2019; root:xnu-4903.270.47~4/RELEASE_X86_64" platform="Unix" cwd="/Users/andy/Documents/Visual Studio 2019/Projects/ksp/webfiles/ksp-portal/portal.tests" machine-name="Andrews-MBP" user="andy" user-domain="Andrews-MBP" culture="en-US" uiculture="en-US" os-architecture="x64" />
     <settings>
       <setting name="WorkDirectory" value="/Users/andy/Documents/Visual Studio 2019/Projects/ksp/webfiles/ksp-portal/portal.tests" />
       <setting name="NumberOfTestWorkers" value="8" />
     </settings>
     <properties>
-      <property name="_PID" value="35459" />
+      <property name="_PID" value="38044" />
       <property name="_APPDOMAIN" value="portal.tests" />
     </properties>
-    <test-suite type="TestSuite" id="1003" name="portal" fullname="portal" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.059882" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-      <test-suite type="TestSuite" id="1004" name="tests" fullname="portal.tests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.059133" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-        <test-suite type="TestFixture" id="1000" name="NoSqlDataAcessTests" fullname="portal.tests.NoSqlDataAcessTests" classname="portal.tests.NoSqlDataAcessTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.055068" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-          <test-case id="1001" name="TestDbConection" fullname="portal.tests.NoSqlDataAcessTests.TestDbConection" methodname="TestDbConection" classname="portal.tests.NoSqlDataAcessTests" runstate="Runnable" seed="1568458525" result="Passed" start-time="2019-08-21 01:54:50Z" end-time="2019-08-21 01:54:50Z" duration="0.044451" asserts="0" />
+    <test-suite type="TestSuite" id="1003" name="portal" fullname="portal" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.049127" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1004" name="tests" fullname="portal.tests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.048501" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestFixture" id="1000" name="NoSqlDataAcessTests" fullname="portal.tests.NoSqlDataAcessTests" classname="portal.tests.NoSqlDataAcessTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.045054" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+          <test-case id="1001" name="TestDbConection" fullname="portal.tests.NoSqlDataAcessTests.TestDbConection" methodname="TestDbConection" classname="portal.tests.NoSqlDataAcessTests" runstate="Runnable" seed="1497551812" result="Passed" start-time="2019-08-21 02:39:49Z" end-time="2019-08-21 02:39:49Z" duration="0.035902" asserts="0" />
         </test-suite>
       </test-suite>
     </test-suite>
