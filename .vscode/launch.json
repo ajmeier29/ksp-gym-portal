@@ -8,7 +8,7 @@
             "name": "Unit Tests",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-test",
             "program": "${workspaceFolder}/portal.tests/bin/Debug/netcoreapp2.2/portal.tests.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
