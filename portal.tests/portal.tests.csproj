@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <!-- <RootNamespace>portal.tests</RootNamespace> -->
+    <UserSecretsId>f4eda884-38d9-4320-8ea6-aba33dd71c5e</UserSecretsId>
     <IsPackable>false</IsPackable>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>

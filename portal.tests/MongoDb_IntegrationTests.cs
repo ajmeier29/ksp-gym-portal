@@ -12,15 +12,23 @@ namespace portal.tests
             BuildConfig();
         }
 
-        private void BuildConfig(){
-            _configuration = new ConfigurationBuilder() 
-                .AddCommandLine(_args)
+        private void BuildConfig()
+        {
+            // TODO: refactor this class to pull from args (which will be passed in for CI/CD tests), or
+            //       to use environmental vars (for use on development machine)
+            _configuration = new ConfigurationBuilder()
+                // .AddCommandLine(_args)
+                .AddEnvironmentVariables("UNITTEST_CUSTOM_")
                 .Build();
+            var test = _configuration["DBUSER"];
+            var hostname = _configuration["HOSTNAME"];
+            var password = _configuration["PASSWORD"];
         }
 
-        public bool RunTests(){
+        public bool RunTests()
+        {
             return ConnectionTestPass() &&
-                   ConnectionTestFail();
+                ConnectionTestFail();
         }
 
         private bool ConnectionTestPass()
@@ -40,6 +48,6 @@ namespace portal.tests
             string connectionString = _configuration.GetValue<string>("dbsettings:connectionstringxx");
             return ddUsername == null && password == null && hostname == null && connectionString == null;
         }
-        
+
     }
 }
