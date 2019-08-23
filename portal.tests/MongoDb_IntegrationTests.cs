@@ -18,9 +18,9 @@ namespace portal.tests
             //       to use environmental vars (for use on development machine)
             _configuration = new ConfigurationBuilder()
                 // .AddCommandLine(_args)
-                .AddEnvironmentVariables("UNITTEST_CUSTOM_")
+                .AddEnvironmentVariables()
                 .Build();
-            var test = _configuration["DBUSER"];
+            var test = _configuration["connectionString"];
             var hostname = _configuration["HOSTNAME"];
             var password = _configuration["PASSWORD"];
         }
