@@ -9,8 +9,14 @@ pool:
 #Your build pipeline references an undefined variable named ‘connectionString’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 
 steps:
-- bash: export KSP_DBUSER=ksp-db-user
-- bash: echo $KSP_DBUSER
+
+- task: Bash@3
+  inputs:
+  targetType: 'inline'
+  script: echo $DBUSER
+  env:
+  DBUSER: $(KSPDBUSER)
+
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:

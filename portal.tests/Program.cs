@@ -11,7 +11,7 @@ namespace portal.tests
     {
         public static int Main(string[] args)
         {
-            var dbUser = Environment.GetEnvironmentVariable("KSP_DBUSER"); 
+            var dbUser = Environment.GetEnvironmentVariable("DBUSER"); 
             var systemdef = Environment.GetEnvironmentVariable("System.DefinitionId");
             // IConfiguration _configuration = new ConfigurationBuilder()
             //     // .AddCommandLine(_args)
