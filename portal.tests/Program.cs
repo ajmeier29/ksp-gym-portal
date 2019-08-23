@@ -12,6 +12,7 @@ namespace portal.tests
         public static int Main(string[] args)
         {
             var dbUser = Environment.GetEnvironmentVariable("KSP_DBUSER");
+            var systemdef = Environment.GetEnvironmentVariable("System.DefinitionId");
             // IConfiguration _configuration = new ConfigurationBuilder()
             //     // .AddCommandLine(_args)
             //     .AddEnvironmentVariables("UNITTEST_CUSTOM_")
@@ -20,6 +21,7 @@ namespace portal.tests
             // var hostname = _configuration["HOSTNAME"];
             // var password = _configuration["PASSWORD"];
             Console.WriteLine($"Vars: {dbUser}");
+            Console.WriteLine($"System.DefinitionId: {systemdef}");
             // var test = new AutoRun(typeof(Program).GetTypeInfo().Assembly)
             //     .Execute(args, new ExtendedTextWrapper(Console.Out), Console.In);
             // MongoDb_IntegrationTests tests = new MongoDb_IntegrationTests(args);
