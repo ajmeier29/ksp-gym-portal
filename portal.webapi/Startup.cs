@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ksp_portal.Models;
+using ksp_portal.Services;
+// using Microsoft.Extensions.Configuration.Binder;
 
 namespace ksp_portal
 {
@@ -27,11 +29,23 @@ namespace ksp_portal
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup configuration to pull in the settings needed from the appSettings.json file
+            // services.Configure<WorkoutsDatabaseSettings>(
+            //         Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
+            // services.AddSingleton<IWorkoutsDatabaseSettings>(sp => 
+            //     sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
+            // IConfiguration config = new ConfigurationBuilder()
+            //     .AddJsonFile("appSettings.json")
+            //     .Build();
+            var name = nameof(WorkoutsDatabaseSettings);
+            // var test = config.GetSection(name);
+            // var t = test["WorkoutsCollectionName"];
             services.Configure<WorkoutsDatabaseSettings>(
-                    Configuration.GetSection("WorkoutsDatabaseSettings"));
-            services.AddSingleton<IWorkoutsDatabaseSettings>(sp => 
+                    Configuration.GetSection(name));
+
+            services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
-                
+
+            services.AddSingleton<WorkoutService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -48,9 +62,9 @@ namespace ksp_portal
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            
+
             app.UseMvc();
-            
+
         }
     }
 }

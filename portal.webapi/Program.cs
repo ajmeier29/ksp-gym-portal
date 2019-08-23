@@ -17,8 +17,14 @@ namespace ksp_portal
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appSettings.json")
+                .Build();
+            return WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(config)
                 .UseStartup<Startup>();
+        }
+
     }
 }
