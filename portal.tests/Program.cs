@@ -11,10 +11,10 @@ namespace portal.tests
     {
         public static int Main(string[] args)
         {
-            var mongoDbUser = Environment.GetEnvironmentVariable("MongoDbUser"); 
-            var mongoDbPassword = Environment.GetEnvironmentVariable("MongoDbPassword"); 
-            var mongoDbHostname = Environment.GetEnvironmentVariable("MongoDbHostname"); 
-            var mongoDbConnectionString = Environment.GetEnvironmentVariable("MongoDbConnectionString"); 
+            var mongoDbUser = Environment.GetEnvironmentVariable("MONGODBUSER"); 
+            var mongoDbPassword = Environment.GetEnvironmentVariable("MONGODBPASSWORD"); 
+            var mongoDbHostname = Environment.GetEnvironmentVariable("MONGODBHOSTNAME"); 
+            var mongoDbConnectionString = Environment.GetEnvironmentVariable("MONGODBCONNECTIONSTRING"); 
             Console.WriteLine($"mongoDbUser: {mongoDbUser}");
             Console.WriteLine($"mongoDbPassword: {mongoDbPassword}");
             Console.WriteLine($"mongoDbHostname: {mongoDbHostname}");

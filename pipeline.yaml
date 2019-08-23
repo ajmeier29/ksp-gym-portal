@@ -8,10 +8,10 @@ pool:
 #Your build pipeline references an undefined variable named ‘hostname’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 #Your build pipeline references an undefined variable named ‘connectionString’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 variables:
-  MongoDbUser: 'db user'
-  MongoDbPassword: 'db password'
-  MongoDbHostname: 'db hostname'
-  MongoDbConnectionString: 'db conn'
+  MONGODBUSER: 'db user'
+  MONGODBPASSWORD: 'db password'
+  MONGODBHOSTNAME: 'db hostname'
+  MONGODBCONNECTIONSTRING: 'db conn'
 
 steps:
 
