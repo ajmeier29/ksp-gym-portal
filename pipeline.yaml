@@ -10,11 +10,8 @@ pool:
 
 steps:
 
-- bash: export DBUSER=$TEMPDBUSER
-  env:
-    TEMPDBUSER: $(KSPDBUSER)
-
-- bash: echo $DBUSER
+variables:
+  DBUSER: 'testvar'
 
 - task: DotNetCoreCLI@2
   displayName: Restore
