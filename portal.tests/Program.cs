@@ -16,7 +16,7 @@ namespace portal.tests
             var mongoDbHostname = Environment.GetEnvironmentVariable("MONGODBHOSTNAME"); 
             var mongoDbConnectionString = Environment.GetEnvironmentVariable("MONGODBCONNECTIONSTRING"); 
             Console.WriteLine($"mongoDbUser: {mongoDbUser}");
-            Console.WriteLine($"mongoDbPassword: {mongoDbPassword}");
+            Console.WriteLine($"mongoDbPassword: {mongoDbPassword}"); 
             Console.WriteLine($"mongoDbHostname: {mongoDbHostname}");
             Console.WriteLine($"mongoDbConnectionString: {mongoDbConnectionString}"); 
             // var test = new AutoRun(typeof(Program).GetTypeInfo().Assembly)
