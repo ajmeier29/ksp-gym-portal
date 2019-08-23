@@ -11,6 +11,7 @@ pool:
 steps:
 - bash:
     export KSP_DBUSER=ksp-db-user
+    echo $KSP_DBUSER
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
