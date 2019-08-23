@@ -18,7 +18,7 @@ namespace portal.tests
             Console.WriteLine($"mongoDbUser: {mongoDbUser}");
             Console.WriteLine($"mongoDbPassword: {mongoDbPassword}");
             Console.WriteLine($"mongoDbHostname: {mongoDbHostname}");
-            Console.WriteLine($"mongoDbConnectionString: {mongoDbConnectionString}");
+            Console.WriteLine($"mongoDbConnectionString: {mongoDbConnectionString}"); 
             // var test = new AutoRun(typeof(Program).GetTypeInfo().Assembly)
             //     .Execute(args, new ExtendedTextWrapper(Console.Out), Console.In);
             // MongoDb_IntegrationTests tests = new MongoDb_IntegrationTests(args);
