@@ -11,8 +11,8 @@ pool:
 steps:
 
   - script: echo $DBUSER
-  env:
-    DBUSER: $(KSPDBUSER)
+    env:
+      DBUSER: $(KSPDBUSER)
 
 - task: DotNetCoreCLI@2
   displayName: Restore
