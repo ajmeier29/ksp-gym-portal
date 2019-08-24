@@ -35,9 +35,9 @@ steps:
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: Integration
-  inputs:
-    command: run
-    projects: '**/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+# - task: DotNetCoreCLI@2
+#   displayName: Integration
+#   inputs:
+#     command: run
+#     projects: '**/*[Tt]ests/*.csproj'
+#     arguments: '--configuration $(BuildConfiguration)'
