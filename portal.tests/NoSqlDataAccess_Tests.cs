@@ -26,7 +26,7 @@ namespace portal.tests
         [Test]
         public void TestEnvVarPass()
         {
-            Assert.True(_configuration["TESTDBUSER"].Equals("test-user"));
+            Assert.True(Environment.GetEnvironmentVariable("TESTDBUSER").Equals("test-user"));
             // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
             // bool result = noSqlDataAccess.Connect();
             //Assert.Pass();
