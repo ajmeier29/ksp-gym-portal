@@ -10,6 +10,13 @@ variables:
 
 steps:
 
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: |
+     portal.webapi/*.json
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
