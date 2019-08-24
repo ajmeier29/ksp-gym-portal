@@ -26,10 +26,10 @@ namespace portal.tests
         [Test]
         public void TestEnvVarPass()
         {
-            //Assert.True(Environment.GetEnvironmentVariable("TESTDBUSER").Equals("test-user"));
+            Assert.True(Environment.GetEnvironmentVariable("TESTDBUSER").Equals("test-user"));
             // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
             // bool result = noSqlDataAccess.Connect();
-            Assert.Pass();
+            //Assert.Pass();
         }
         [Test]
         public void TestEnvVarFail()

@@ -6,16 +6,9 @@ variables:
   MONGODBPASSWORD: $(DbPassword)
   MONGODBHOSTNAME: $(DbHostname)
   MONGODBCONNECTIONSTRING: $(DbConnectionString)
-  TESTDBUSER: $(DbUser)
+  TESTDBUSER: $(DbUserTest)
 
 steps:
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    Contents: |
-     portal.webapi/*.json
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/bin/Release/netcoreapp2.2'
 
 - task: DotNetCoreCLI@2
   displayName: Restore
