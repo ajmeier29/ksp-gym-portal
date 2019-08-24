@@ -11,16 +11,18 @@ namespace portal.tests
     {
         public static int Main(string[] args)
         {
-            var mongoDbUser = Environment.GetEnvironmentVariable("MONGODBUSERss"); 
+            var mongoDbUser = Environment.GetEnvironmentVariable("MONGODBUSER"); 
             var mongoDbPassword = Environment.GetEnvironmentVariable("MONGODBPASSWORD"); 
             var mongoDbHostname = Environment.GetEnvironmentVariable("MONGODBHOSTNAME"); 
             var mongoDbConnectionString = Environment.GetEnvironmentVariable("MONGODBCONNECTIONSTRING"); 
+            var TESTDBUSER = Environment.GetEnvironmentVariable("TESTDBUSER"); 
             Console.WriteLine($"mongoDbUser: {mongoDbUser}");
             Console.WriteLine($"mongoDbPassword: {mongoDbPassword}"); 
             Console.WriteLine($"mongoDbHostname: {mongoDbHostname}");
             Console.WriteLine($"mongoDbConnectionString: {mongoDbConnectionString}"); 
-            var test = new AutoRun(typeof(Program).GetTypeInfo().Assembly)
-                .Execute(args, new ExtendedTextWrapper(Console.Out), Console.In);
+            Console.WriteLine($"TESTDBUSER: {TESTDBUSER}"); 
+            // var test = new AutoRun(typeof(Program).GetTypeInfo().Assembly)
+            //     .Execute(args, new ExtendedTextWrapper(Console.Out), Console.In);
             // MongoDb_IntegrationTests tests = new MongoDb_IntegrationTests(args);
             // // tests.ConnectionTest();
             // if (tests.RunTests())
