@@ -14,8 +14,8 @@
     <Content Include="appsettings.Development.json.json">
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content> -->
-    <None Include="appSettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
-    <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+    <!-- <None Include="appSettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+    <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" /> -->
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.0" />
