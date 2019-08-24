@@ -18,14 +18,26 @@ namespace portal.tests
         [SetUp]
         public void Setup()
         {
+            _configuration = new ConfigurationBuilder()
+                .AddEnvironmentVariables()
+                .Build();
         }
 
         [Test]
-        public void TestDbConection()
+        public void TestEnvVarPass()
         {
+            Assert.True(_configuration["TESTDBUSER"].Equals("test-user"));
             // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
             // bool result = noSqlDataAccess.Connect();
-            Assert.Pass();
+            //Assert.Pass();
+        }
+        [Test]
+        public void TestEnvVarFail()
+        {
+            Assert.False(_configuration["TESTDBUSER"].Equals("test-usersss"));
+            // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
+            // bool result = noSqlDataAccess.Connect();
+            //Assert.Pass();
         }
     }
 }

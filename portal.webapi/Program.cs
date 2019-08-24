@@ -17,12 +17,17 @@ namespace ksp_portal
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
-            var config = new ConfigurationBuilder()
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            IConfiguration configuration = new ConfigurationBuilder()
                 .AddJsonFile("appSettings.json")
+                // https://github.com/aspnet/MetaPackages/blob/rel/2.0.0/src/Microsoft.AspNetCore/WebHost.cs
+                .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
                 .Build();
             return WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(config)
+                .UseConfiguration(configuration)
                 .UseStartup<Startup>();
         }
 

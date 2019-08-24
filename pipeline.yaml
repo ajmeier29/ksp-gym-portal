@@ -12,6 +12,7 @@ variables:
   MONGODBPASSWORD: $(DbPassword)
   MONGODBHOSTNAME: $(DbHostname)
   MONGODBCONNECTIONSTRING: $(DbConnectionString)
+  TESTDBUSER: $(TestDbUser)
 
 steps:
 

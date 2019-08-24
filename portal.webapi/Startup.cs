@@ -28,24 +28,14 @@ namespace ksp_portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setup configuration to pull in the settings needed from the appSettings.json file
-            // services.Configure<WorkoutsDatabaseSettings>(
-            //         Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
-            // services.AddSingleton<IWorkoutsDatabaseSettings>(sp => 
-            //     sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
-            // IConfiguration config = new ConfigurationBuilder()
-            //     .AddJsonFile("appSettings.json")
-            //     .Build();
-            var name = nameof(WorkoutsDatabaseSettings);
-            // var test = config.GetSection(name);
-            // var t = test["WorkoutsCollectionName"];
             services.Configure<WorkoutsDatabaseSettings>(
-                    Configuration.GetSection(name));
+                    // Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
+                    Configuration);
 
             services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
 
-            services.AddSingleton<WorkoutService>();
+            services.AddSingleton<WorkoutService>(sp => new WorkoutService(Configuration, new WorkoutsDatabaseSettings()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
