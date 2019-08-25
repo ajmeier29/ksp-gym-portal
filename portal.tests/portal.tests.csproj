@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-
-    <IsPackable>false</IsPackable>
+    <UserSecretsId>f4eda884-38d9-4320-8ea6-aba33dd71c5e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +10,7 @@
     <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="NUnitLite" Version="3.11.0" />
   </ItemGroup>
 
   <ItemGroup>

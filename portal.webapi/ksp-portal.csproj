@@ -2,14 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>00e3bb9b-8be0-4b30-a97c-8302be08627b</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>ksp_portal</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+    <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="MongoDB.Driver" Version="2.9.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
   </ItemGroup>
 
 </Project>
