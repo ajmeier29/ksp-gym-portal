@@ -21,7 +21,7 @@ namespace ksp_portal
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             IConfiguration configuration = new ConfigurationBuilder()
-                .AddJsonFile("appSettings.json")
+                .AddJsonFile("appsettings.json")
                 // https://github.com/aspnet/MetaPackages/blob/rel/2.0.0/src/Microsoft.AspNetCore/WebHost.cs
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
