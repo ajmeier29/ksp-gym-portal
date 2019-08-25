@@ -14,7 +14,7 @@ namespace ksp_portal.Services
         private IConfiguration _configuration { get; set; }
         private string _connectionString { get; set; }
         private IWorkoutsDatabaseSettings _workoutDbSettings;
-        // public WorkoutService(IWorkoutsDatabaseSettings workoutDbSettings)
+        private ConfigurationService _configurationService;
         public WorkoutService(IConfiguration config, IWorkoutsDatabaseSettings workoutSettings)
         {
             _configuration = config;        
@@ -24,18 +24,17 @@ namespace ksp_portal.Services
             // Then bind it to the IWorkoutDatabaseSettings object
             _configuration.GetSection(settingsObjectName).Bind(_workoutDbSettings);
             _workoutDbSettings.ConnectionString = ModifyMongoConnectionString();
+
+            // Init connection string and any other shit
+
             // Init();
         }
         // Replaces the connection string with the values passed in from the env vars or user secrets.
         // Example connection string: mongodb+srv://[[MONGODBUSER]]:[[MONGODBPASSWORD]]@[[MONGODBHOSTNAME]]
         public string ModifyMongoConnectionString()
         {
-            _connectionString = _workoutDbSettings.ConnectionString;
-            var testvar = _configuration["TESTDBUSER"];
-            _connectionString = _connectionString.Replace("[[MONGODBUSER]]", _configuration["MONGODBUSER"]);
-            _connectionString = _connectionString.Replace("[[MONGODBPASSWORD]]", _configuration["MONGODBPASSWORD"]);
-            _connectionString = _connectionString.Replace("[[MONGODBHOSTNAME]]", _configuration["MONGODBHOSTNAME"]);
-            return _connectionString;
+            _configurationService = new ConfigurationService(_workoutDbSettings, _configuration);
+            return _configurationService.ConnectionStringBuilder();
         }
         public void Init()
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ksp_portal.Models;
 using ksp_portal.Services;
 
+
 namespace ksp_portal.Controllers
 {
     [Route("api/[controller]")]
@@ -17,15 +18,15 @@ namespace ksp_portal.Controllers
         public WorkoutController(WorkoutService service){
             _workoutService = service;
         }
-        // GET api/workout
-        // [HttpGet]
-        // public ActionResult<List<Workout>> Get()
-        // {
-        //     return _workoutService.Get();
-        //     // var test = Configuration["db_username"];
-        //     //return new string[] { "Hello World one", "Hello World 2" };
-        // }
-
+        // GET api/workouts
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+            
+            return _workoutService.Get();
+            // var test = Configuration["db_username"];
+            //return new string[] { "Hello World one", "Hello World 2" };
+        }
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)

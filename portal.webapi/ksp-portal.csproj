@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <Content Include="appSettings.json">
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
-    <Content Include="appsettings.Development.json.json">
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content> -->
     <None Include="appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
     <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
