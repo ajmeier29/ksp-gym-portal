@@ -24,7 +24,7 @@ namespace ksp_portal.Services
             // Then bind it to the IWorkoutDatabaseSettings object
             _configuration.GetSection(settingsObjectName).Bind(_workoutDbSettings);
             _workoutDbSettings.ConnectionString = ModifyMongoConnectionString();
-            Init();
+            // Init();
         }
         // Replaces the connection string with the values passed in from the env vars or user secrets.
         // Example connection string: mongodb+srv://[[MONGODBUSER]]:[[MONGODBPASSWORD]]@[[MONGODBHOSTNAME]]
@@ -48,10 +48,11 @@ namespace ksp_portal.Services
             _workouts = _database.GetCollection<Workout>(_workoutDbSettings.WorkoutsCollectionName);
         }
 
-        public List<Workout> Get()
+        public string Get()
         {
-            SetCollection();
-            return _workouts.Find(workout => true).ToList();
+            return _workoutDbSettings.ConnectionString;
+            // SetCollection();
+            // return _workouts.Find(workout => true).ToList();
         }
 
 

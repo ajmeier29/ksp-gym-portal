@@ -3,11 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>f4eda884-38d9-4320-8ea6-aba33dd71c5e</UserSecretsId>
-    <!-- <GenerateProgramFile>false</GenerateProgramFile> -->
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <None Include="mongodbSettings.json" CopyToOutputDirectory="Always" /> -->
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
