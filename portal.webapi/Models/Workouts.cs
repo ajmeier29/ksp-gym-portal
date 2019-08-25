@@ -17,7 +17,7 @@ namespace ksp_portal.Models
     }
     public class Series
     {
-        public string series_number { get; set; }
+        public int series_number { get; set; }
         public string series_tag { get; set; }
         public List<Exercise> exercises { get; set; }
     }

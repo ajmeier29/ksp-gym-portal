@@ -20,12 +20,9 @@ namespace ksp_portal.Controllers
         }
         // GET api/workouts
         [HttpGet]
-        public ActionResult<string> Get()
+        public ActionResult<List<Workout>> Get()
         {
-            
             return _workoutService.Get();
-            // var test = Configuration["db_username"];
-            //return new string[] { "Hello World one", "Hello World 2" };
         }
         // GET api/values/5
         [HttpGet("{id}")]

@@ -17,17 +17,16 @@ namespace ksp_portal.Services
         private ConfigurationService _configurationService;
         public WorkoutService(IConfiguration config, IWorkoutsDatabaseSettings workoutSettings)
         {
-            _configuration = config;        
+            _configuration = config;
             _workoutDbSettings = workoutSettings;
             // Get the type of IWorkoutDatabaseSettings name for use in .GetSection
             string settingsObjectName = _workoutDbSettings.GetType().ToString().Split('.').Last();
             // Then bind it to the IWorkoutDatabaseSettings object
             _configuration.GetSection(settingsObjectName).Bind(_workoutDbSettings);
+            // Init connection string and connect to db
             _workoutDbSettings.ConnectionString = ModifyMongoConnectionString();
-
-            // Init connection string and any other shit
-
-            // Init();
+            _client = new MongoClient(_workoutDbSettings.ConnectionString);
+            _database = _client.GetDatabase(_workoutDbSettings.DatabaseName);
         }
         // Replaces the connection string with the values passed in from the env vars or user secrets.
         // Example connection string: mongodb+srv://[[MONGODBUSER]]:[[MONGODBPASSWORD]]@[[MONGODBHOSTNAME]]
@@ -36,24 +35,16 @@ namespace ksp_portal.Services
             _configurationService = new ConfigurationService(_workoutDbSettings, _configuration);
             return _configurationService.ConnectionStringBuilder();
         }
-        public void Init()
-        {
-            _client = new MongoClient(_workoutDbSettings.ConnectionString);
-            _database = _client.GetDatabase(_workoutDbSettings.DatabaseName);
-        }
 
         public void SetCollection()
         {
             _workouts = _database.GetCollection<Workout>(_workoutDbSettings.WorkoutsCollectionName);
         }
 
-        public string Get()
+        public List<Workout> Get()
         {
-            return _workoutDbSettings.ConnectionString;
-            // SetCollection();
-            // return _workouts.Find(workout => true).ToList();
+            SetCollection();
+            return _workouts.Find(workout => workout.workout_name.Equals("Adult")).ToList();
         }
-
-
     }
 }
