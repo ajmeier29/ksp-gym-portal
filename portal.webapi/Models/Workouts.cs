@@ -15,6 +15,13 @@ namespace ksp_portal.Models
         public string workout_image_url { get; set; }
         public List<Series> workout_series { get; set; }
     }
+    public class NewWorkout
+    {
+        public string workout_name { get; set; }
+        public DateTime workout_date { get; set; }
+        public string workout_image_url { get; set; }
+        public List<Series> workout_series { get; set; }
+    }
     public class Series
     {
         public int series_number { get; set; }
