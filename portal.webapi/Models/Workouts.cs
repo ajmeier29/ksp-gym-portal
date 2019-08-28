@@ -30,7 +30,7 @@ namespace portal.webapi.Models
         public int series_number { get; set; }
         [Required]
         public string series_tag { get; set; }
-        
+        [Required]
         public List<Exercise> exercises { get; set; }
     }
     public class Exercise

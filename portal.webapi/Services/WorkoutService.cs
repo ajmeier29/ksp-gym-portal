@@ -29,6 +29,8 @@ namespace portal.webapi.Services
             _workoutDbSettings.ConnectionString = ModifyMongoConnectionString();
             _client = new MongoClient(_workoutDbSettings.ConnectionString);
             _database = _client.GetDatabase(_workoutDbSettings.DatabaseName);
+            // Set the collection
+            _workouts = _database.GetCollection<Workout>(_workoutDbSettings.WorkoutsCollectionName);
         }
         // Replaces the connection string with the values passed in from the env vars or user secrets.
         // Example connection string: mongodb+srv://[[MONGODBUSER]]:[[MONGODBPASSWORD]]@[[MONGODBHOSTNAME]]
@@ -38,20 +40,20 @@ namespace portal.webapi.Services
             return _configurationService.ConnectionStringBuilder();
         }
 
-        public void SetCollection()
-        {
-            _workouts = _database.GetCollection<Workout>(_workoutDbSettings.WorkoutsCollectionName);
-        }
-
         public List<Workout> Get()
         {
-            SetCollection();
             return _workouts.Find(workout => workout.workout_name.Equals("Adult")).ToList();
         }
 
+        #region  Inserts
         public async void InsertOneWorkout(Workout workout)
         {
             await _workouts.InsertOneAsync(workout);
         }
+        #endregion
+
+        #region  Deletes
+        //public async void 
+        #endregion
     }
 }
