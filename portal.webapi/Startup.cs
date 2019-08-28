@@ -10,8 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ksp_portal.Models;
-using ksp_portal.Services;
+using portal.webapi.Models;
+using portal.webapi.Services;
 // using Microsoft.Extensions.Configuration.Binder;
 
 namespace ksp_portal

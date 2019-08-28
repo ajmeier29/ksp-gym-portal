@@ -3,10 +3,10 @@
 // using System.Linq;
 // using System.Threading.Tasks;
 // using Microsoft.AspNetCore.Mvc;
-// using ksp_portal.Models;
-// using ksp_portal.Services;
+// using portal.webapi.Models;
+// using portal.webapi.Services;
 
-// namespace ksp_portal.Controllers
+// namespace portal.webapi.Controllers
 // {
 //     [Route("api/[controller]")]
 //     [ApiController]

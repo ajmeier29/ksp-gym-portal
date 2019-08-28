@@ -1,8 +1,8 @@
-using ksp_portal.Models;
+using portal.webapi.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace ksp_portal.Services
+namespace portal.webapi.Services
 {
     // This class will return the correct connection string 
     // regardless of if user-secrets are used, or environement variables

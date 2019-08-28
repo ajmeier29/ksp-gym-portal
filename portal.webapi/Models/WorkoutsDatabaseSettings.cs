@@ -1,6 +1,6 @@
 
 
-namespace ksp_portal.Models
+namespace portal.webapi.Models
 {
     public class WorkoutsDatabaseSettings : IWorkoutsDatabaseSettings
     {

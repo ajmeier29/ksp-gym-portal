@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ksp_portal.Models;
-using ksp_portal.Services;
+using portal.webapi.Models;
+using portal.webapi.Services;
 using Microsoft.AspNetCore.Http.Internal;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
 
-namespace ksp_portal.Controllers
+namespace portal.webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,6 +20,7 @@ namespace ksp_portal.Controllers
         public WorkoutController(WorkoutService service)
         {
             _workoutService = service;
+            // BsonClassMap.RegisterClassMap<Workout>();
         }
         // GET api/workout
         [HttpGet]
@@ -38,8 +41,10 @@ namespace ksp_portal.Controllers
         public IActionResult SomeAction([FromBody]Workout model)
         {
             var test = model;
+            // var bsonObject = model.ToBsonDocument();
+            _workoutService.InsertOneWorkout(model);
             // play the body string again
-            return null;
+            return Ok(test);
         }
         // PUT api/workout/5
         [HttpPut("{id}")]

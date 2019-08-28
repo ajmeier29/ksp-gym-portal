@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
-namespace ksp_portal.Models
+namespace portal.webapi.Models
 {
     public class Workout
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
-        public string workout_name { get; set; }
+        public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
         public DateTime workout_date { get; set; }
         public string workout_image_url { get; set; }
         public List<Series> workout_series { get; set; }
@@ -24,14 +25,21 @@ namespace ksp_portal.Models
     }
     public class Series
     {
+        [Required]
+        // [Range(0, int.MaxValue, ErrorMessage="Please enter a valid integer!")]
         public int series_number { get; set; }
+        [Required]
         public string series_tag { get; set; }
+        
         public List<Exercise> exercises { get; set; }
     }
     public class Exercise
     {
+        [Required]
         public int exercise_number { get; set; }
+        [Required]
         public string exercise_name { get; set; }
+        [Required]
         public string exercise_reps { get; set; }
     }
 }

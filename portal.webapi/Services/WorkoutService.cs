@@ -1,14 +1,16 @@
 using MongoDB.Driver;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Linq;
-using ksp_portal.Models;
+using portal.webapi.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace ksp_portal.Services
+namespace portal.webapi.Services
 {
     public class WorkoutService
     {
         private IMongoCollection<Workout> _workouts { get; set; }
+    
         private MongoClient _client { get; set; }
         private IMongoDatabase _database { get; set; }
         private IConfiguration _configuration { get; set; }
@@ -45,6 +47,11 @@ namespace ksp_portal.Services
         {
             SetCollection();
             return _workouts.Find(workout => workout.workout_name.Equals("Adult")).ToList();
+        }
+
+        public async void InsertOneWorkout(Workout workout)
+        {
+            await _workouts.InsertOneAsync(workout);
         }
     }
 }

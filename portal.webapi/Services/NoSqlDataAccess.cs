@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ksp_portal.Services
+namespace portal.webapi.Services
 {
     public class NoSqlDataAccess : INoSqlDataAccess
     {
