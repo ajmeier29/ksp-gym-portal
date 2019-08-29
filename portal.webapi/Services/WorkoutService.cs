@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using portal.webapi.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace portal.webapi.Services
 {
@@ -16,9 +17,12 @@ namespace portal.webapi.Services
         private IConfiguration _configuration { get; set; }
         private string _connectionString { get; set; }
         private IWorkoutsDatabaseSettings _workoutDbSettings;
+        private readonly ILogger _logger;
         private ConfigurationService _configurationService;
-        public WorkoutService(IConfiguration config, IWorkoutsDatabaseSettings workoutSettings)
+        public WorkoutService(IConfiguration config, IWorkoutsDatabaseSettings workoutSettings, ILoggerFactory logerFactory)
         {
+            // Create logger from factory for the WorkoutService
+            _logger = logerFactory.CreateLogger("portal.webapi.Services.WorkoutService");
             _configuration = config;
             _workoutDbSettings = workoutSettings;
             // Get the type of IWorkoutDatabaseSettings name for use in .GetSection
@@ -42,7 +46,11 @@ namespace portal.webapi.Services
 
         public List<Workout> Get()
         {
-            return _workouts.Find(workout => workout.workout_name.Equals("Adult")).ToList();
+            var foundWorkout = _workouts.Find(workout => workout.workout_name.Equals("Adult")).ToList();
+            foundWorkout.ForEach(x => {
+                _logger.LogInformation($"User Queried workout: {x.id}");
+            });
+            return foundWorkout;
         }
 
         #region  Inserts

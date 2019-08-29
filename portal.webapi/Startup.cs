@@ -14,13 +14,17 @@ using portal.webapi.Models;
 using portal.webapi.Services;
 // using Microsoft.Extensions.Configuration.Binder;
 
-namespace ksp_portal
+namespace portal.webapi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger _logger;
+        private readonly ILoggerFactory _loggerFactory;
+        public Startup(IConfiguration configuration, ILogger<Startup> logger, ILoggerFactory  loggerFactory)
         {
             Configuration = configuration;
+            _logger = logger;
+            _loggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +32,10 @@ namespace ksp_portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+
+            // The following will be picked up by Application Insights.
+            _logger.LogInformation("Logging from ConfigureServices.");
             services.Configure<WorkoutsDatabaseSettings>(
                     // Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
                     Configuration);
@@ -35,7 +43,7 @@ namespace ksp_portal
             services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
 
-            services.AddSingleton<WorkoutService>(sp => new WorkoutService(Configuration, new WorkoutsDatabaseSettings()));
+            services.AddSingleton<WorkoutService>(sp => new WorkoutService(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -44,6 +52,7 @@ namespace ksp_portal
         {
             if (env.IsDevelopment())
             {
+                _logger.LogInformation("Configuring for Development environment");
                 app.UseDeveloperExceptionPage();
             }
             else
