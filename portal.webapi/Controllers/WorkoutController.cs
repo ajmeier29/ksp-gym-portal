@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using portal.webapi.Models;
 using portal.webapi.Services;
+using MongoDB.Driver;
 using Microsoft.AspNetCore.Http.Internal;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson;
@@ -30,21 +31,18 @@ namespace portal.webapi.Controllers
         }
         // GET api/workout/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<Workout>> Get(string id)
         {
-            return "value";
+            Workout workout = await _workoutService.GetOneWorkoutAsync(id);
+            return workout;
         }
 
         // POST api/workout
         [HttpPost]
-        // [EnableBodyRewind]
-        public IActionResult SomeAction([FromBody]Workout model)
+        public async Task<IActionResult> SomeAction([FromBody]Workout model)
         {
-            var test = model;
-            // var bsonObject = model.ToBsonDocument();
-            _workoutService.InsertOneWorkout(model);
-            // play the body string again
-            return Ok(test);
+            await _workoutService.InsertOneWorkoutAsync(model);
+            return Ok(model);
         }
         // PUT api/workout/5
         [HttpPut("{id}")]

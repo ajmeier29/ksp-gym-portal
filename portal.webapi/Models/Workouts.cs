@@ -26,7 +26,7 @@ namespace portal.webapi.Models
     public class Series
     {
         [Required]
-        // [Range(0, int.MaxValue, ErrorMessage="Please enter a valid integer!")]
+        [Range(1, int.MaxValue, ErrorMessage="Please enter a valid integer > 0!")]
         public int series_number { get; set; }
         [Required]
         public string series_tag { get; set; }

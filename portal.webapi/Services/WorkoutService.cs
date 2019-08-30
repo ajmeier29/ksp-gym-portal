@@ -5,6 +5,8 @@ using System.Linq;
 using portal.webapi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace portal.webapi.Services
 {
@@ -54,14 +56,24 @@ namespace portal.webapi.Services
         }
 
         #region  Inserts
-        public async void InsertOneWorkout(Workout workout)
+        public async Task<Workout> InsertOneWorkoutAsync(Workout workout)
         {
             await _workouts.InsertOneAsync(workout);
+            return workout;
         }
         #endregion
 
         #region  Deletes
         //public async void 
+        #endregion
+
+        #region Retrieve
+        public async Task<Workout> GetOneWorkoutAsync(string id)
+        {
+            FilterDefinition<Workout> filter =  Builders<Workout>.Filter.Eq("_id", ObjectId.Parse(id));
+            Workout workout = await _workouts.Find(filter).FirstAsync();
+            return workout;
+        }
         #endregion
     }
 }
