@@ -12,6 +12,7 @@ namespace portal.webapi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
         public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
+        [Required]
         public DateTime workout_date { get; set; }
         public string workout_image_url { get; set; }
         public List<Series> workout_series { get; set; }
@@ -26,7 +27,8 @@ namespace portal.webapi.Models
     public class Series
     {
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage="Please enter a valid integer > 0!")]
+        [Display(Name="SeriesNumber")]
+        [Range(1, int.MaxValue, ErrorMessage="Your {0} Please enter a valid integer > 0!")]
         public int series_number { get; set; }
         [Required]
         public string series_tag { get; set; }
