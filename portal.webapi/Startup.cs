@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +8,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using portal.webapi.Models;
 using portal.webapi.Services;
-// using Microsoft.Extensions.Configuration.Binder;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace portal.webapi
 {
@@ -45,6 +42,10 @@ namespace portal.webapi
 
             services.AddSingleton<WorkoutService>(sp => new WorkoutService(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Add validations
+            services.AddMvc().AddFluentValidation();
+            services.AddTransient<IValidator<Workout>, WorkoutValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

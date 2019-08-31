@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Include="appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
     <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+    <PackageReference Include="FluentValidation" Version="8.5.0-preview4" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0-preview4" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.0-beta1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />

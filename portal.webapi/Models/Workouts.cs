@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 
 namespace portal.webapi.Models
 {
@@ -12,7 +14,6 @@ namespace portal.webapi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
         public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
-        [Required]
         public DateTime workout_date { get; set; }
         public string workout_image_url { get; set; }
         public List<Series> workout_series { get; set; }
@@ -44,4 +45,22 @@ namespace portal.webapi.Models
         [Required]
         public string exercise_reps { get; set; }
     }
+
+    public class WorkoutValidator : AbstractValidator<Workout> {
+	public WorkoutValidator() {
+        // Workout Series
+        RuleFor(x => x.workout_series).NotEmpty().WithMessage("No Series Information Was Entered!!");
+        // Workout Date Validations
+		RuleFor(x => x.workout_date).NotEqual(DateTime.Parse("0001-01-01T00:00:00")).WithMessage("Please enter a valid date!");
+        RuleFor(x => x.workout_date).GreaterThan(DateTime.Now).WithMessage($"Please enter a date > {DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}");
+        // Series Validations
+        // Validate there are no duplicate series numbers
+        RuleFor(x => x.workout_series).Must(y => 
+        {
+            var list = y.Select(i => i.series_number).ToList();
+            return list.Count() == list.Distinct().Count();
+        }
+        ).WithMessage("Series Numbers cannot have the same value!");
+    }
+}
 }
