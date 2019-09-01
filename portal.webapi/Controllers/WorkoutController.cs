@@ -36,10 +36,18 @@ namespace portal.webapi.Controllers
             Workout workout = await _workoutService.GetOneWorkoutAsync(id);
             return workout;
         }
+   
+        [Route("[action]/{limit}")]
+        [HttpGet]
+        // Get api/workout/GetLatestWorkoutsLimitAsync/2
+        public async Task<ActionResult<List<Workout>>> GetLatestWorkoutsLimitAsync(int limit)
+        {
+            return await _workoutService.GetLatestWorkoutsAsync(limit);
+        }
 
         // POST api/workout
         [HttpPost]
-        public async Task<IActionResult> SomeAction([FromBody]Workout model)
+        public async Task<IActionResult> InsertNewWorkout([FromBody]Workout model)
         {
             await _workoutService.InsertOneWorkoutAsync(model);
             return Ok(model);

@@ -74,6 +74,16 @@ namespace portal.webapi.Services
             Workout workout = await _workouts.Find(filter).FirstAsync();
             return workout;
         }
+        /// <summary>
+        /// Returns a list of the latest amount of workouts based on the limit number passed in.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Workout>> GetLatestWorkoutsAsync(int limit)
+        {
+            FilterDefinition<Workout> filter = Builders<Workout>.Filter.Exists("_id");
+            var sort = Builders<Workout>.Sort.Descending("workout_date");
+            return await _workouts.Find(filter).Sort(sort).Limit(limit).ToListAsync();
+        }
         #endregion
     }
 }
