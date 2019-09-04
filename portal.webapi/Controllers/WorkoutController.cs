@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using portal.webapi.Repository;
 using portal.webapi.Models;
 using portal.webapi.Services;
 using MongoDB.Driver;
@@ -16,9 +17,9 @@ namespace portal.webapi.Controllers
     [ApiController]
     public class WorkoutController : ControllerBase
     {
-        private WorkoutService _workoutService;
+        private RepositoryBase<Workout> _workoutService;
 
-        public WorkoutController(WorkoutService service)
+        public WorkoutController(RepositoryBase<Workout> service)
         {
             _workoutService = service;
             // BsonClassMap.RegisterClassMap<Workout>();
@@ -33,7 +34,7 @@ namespace portal.webapi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Workout>> Get(string id)
         {
-            Workout workout = await _workoutService.GetOneWorkoutAsync(id);
+            Workout workout = await _workoutService.GetOneByIdAsync(id);
             return workout;
         }
    
@@ -42,14 +43,14 @@ namespace portal.webapi.Controllers
         // Get api/workout/GetLatestWorkoutsLimitAsync/2
         public async Task<ActionResult<List<Workout>>> GetLatestWorkoutsLimitAsync(int limit)
         {
-            return await _workoutService.GetLatestWorkoutsAsync(limit);
+            return await _workoutService.GetLatestAsync(limit);
         }
 
         // POST api/workout
         [HttpPost]
         public async Task<IActionResult> InsertNewWorkout([FromBody]Workout model)
         {
-            await _workoutService.InsertOneWorkoutAsync(model);
+            await _workoutService.InsertOneAsync(model);
             return Ok(model);
         }
         // PUT api/workout/5
