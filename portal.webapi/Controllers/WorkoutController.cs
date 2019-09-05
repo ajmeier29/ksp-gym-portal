@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Http.Internal;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson;
+using Microsoft.Extensions.Configuration;
 
 namespace portal.webapi.Controllers
 {
@@ -17,40 +18,45 @@ namespace portal.webapi.Controllers
     [ApiController]
     public class WorkoutController : ControllerBase
     {
-        private RepositoryBase<Workout> _workoutService;
+        // private RepositoryFactory _repositoryFactory {get;set;}
+        private WorkoutService _workoutService { get; set; }
+        private IRepository<Workout> _workoutRepository {get; set;}
 
-        public WorkoutController(RepositoryBase<Workout> service)
+        public WorkoutController(WorkoutService workoutService)
         {
-            _workoutService = service;
-            // BsonClassMap.RegisterClassMap<Workout>();
+            _workoutService = workoutService;
+            _workoutRepository = _workoutService.GetRepository();
         }
+        // public WorkoutController(){
+        //     var test = "";
+        // }
         // GET api/workout
-        [HttpGet]
-        public ActionResult<List<Workout>> Get()
-        {
-            return _workoutService.Get();
-        }
+        // [HttpGet]
+        // public ActionResult<List<Workout>> Get()
+        // {
+        //     return _workoutService.Get<Workout>();
+        // }
         // GET api/workout/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Workout>> Get(string id)
         {
-            Workout workout = await _workoutService.GetOneByIdAsync(id);
+            Workout workout = await _workoutRepository.GetOneByIdAsync(id);
             return workout;
         }
-   
+
         [Route("[action]/{limit}")]
         [HttpGet]
         // Get api/workout/GetLatestWorkoutsLimitAsync/2
         public async Task<ActionResult<List<Workout>>> GetLatestWorkoutsLimitAsync(int limit)
         {
-            return await _workoutService.GetLatestAsync(limit);
+            return await _workoutRepository.GetLatestAsync(limit);
         }
 
         // POST api/workout
         [HttpPost]
         public async Task<IActionResult> InsertNewWorkout([FromBody]Workout model)
         {
-            await _workoutService.InsertOneAsync(model);
+            await _workoutRepository.InsertOneAsync(model);
             return Ok(model);
         }
         // PUT api/workout/5

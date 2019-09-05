@@ -6,10 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using portal.webapi.Models;
-using portal.webapi.Repository;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+
+using portal.webapi.Models;
+using portal.webapi.Repository;
+using portal.webapi.Services;
 
 namespace portal.webapi
 {
@@ -39,8 +41,9 @@ namespace portal.webapi
 
             services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
-
-            services.AddSingleton<WorkoutRepository>(sp => new WorkoutRepository(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
+            
+            services.AddSingleton<WorkoutService>(sp => new WorkoutService(new ProductionRepository(), Configuration, new WorkoutsDatabaseSettings()));
+            // services.AddSingleton<WorkoutRepository>(sp => new WorkoutRepository(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Add validations

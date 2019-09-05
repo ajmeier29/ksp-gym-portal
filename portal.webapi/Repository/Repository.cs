@@ -1,55 +1,45 @@
+using MongoDB.Driver;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System;
+using portal.webapi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using portal.webapi.Models;
-using portal.webapi.Services;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace portal.webapi.Repository
 {
-
-    public abstract class RepositoryBase
+    public class Repository<T> : IRepository<T>
     {
-        protected IMongoCollection<TEntity> Collection { get; set; }
-        protected MongoClient _client { get; set; }
-        protected IMongoDatabase _database { get; set; }
-        protected IConfiguration _configuration { get; set; }
-        protected string _connectionString { get; set; }
-        protected IWorkoutsDatabaseSettings _workoutDbSettings { get; set; }
-        protected ILogger _logger { get; set; }
-        protected ConfigurationService _configurationService { get; set; }
-        public RepositoryBase(IConfiguration config, IWorkoutsDatabaseSettings workoutSettings, ILoggerFactory logerFactory)
+        // public ILogger Logger { get; set; }
+        public IMongoCollection<T> Collection { get; set; }
+        public Repository(IMongoCollection<T> collection)
         {
-            // Create logger from factory for the WorkoutService
-            _logger = logerFactory.CreateLogger("portal.webapi.Services.WorkoutService");
-            _configuration = config;
-            _workoutDbSettings = workoutSettings;
-            // Get the type of IWorkoutDatabaseSettings name for use in .GetSection
-            string settingsObjectName = _workoutDbSettings.GetType().ToString().Split('.').Last();
-            // Then bind it to the IWorkoutDatabaseSettings object
-            _configuration.GetSection(settingsObjectName).Bind(_workoutDbSettings);
-            // Init connection string and connect to db
-            _workoutDbSettings.ConnectionString = ModifyMongoConnectionString();
-            _client = new MongoClient(_workoutDbSettings.ConnectionString);
-            _database = _client.GetDatabase(_workoutDbSettings.DatabaseName);
-            // Set the collection
-            Collection = _database.GetCollection<TEntity>(_workoutDbSettings.WorkoutsCollectionName);
+            if(collection == null){
+                throw new InvalidOperationException("IMongoCollection<T> Collection is null in Repository object!");
+            }
+            Collection = collection;
+            // Logger = loggerFactory.CreateLogger("portal.webapi.Services.WorkoutService");;
         }
-        // Replaces the connection string with the values passed in from the env vars or user secrets.
-        // Example connection string: mongodb+srv://[[MONGODBUSER]]:[[MONGODBPASSWORD]]@[[MONGODBHOSTNAME]]
-        public string ModifyMongoConnectionString()
-        {
-            _configurationService = new ConfigurationService(_workoutDbSettings, _configuration);
-            return _configurationService.ConnectionStringBuilder();
-        }
-
-        public abstract List<TEntity> Get<TEntity>();
+        
+        // public List<T> Get(IFindFluent<T,T> filterSearch)
+        // {
+        //     var foundWorkout = Collection.Find(workout => workout.workout_name.Equals("Adult")).ToList();
+        //     foundWorkout.ForEach(x =>
+        //     {
+        //         base.Logger.LogInformation($"User Queried workout: {x.id}");
+        //     });
+        //     return foundWorkout;
+        // }
 
         #region  Inserts
-        public abstract Task<TEntity> InsertOneAsync(TEntity workout);
+        public async Task<T> InsertOneAsync(T model)
+        {
+            await Collection.InsertOneAsync(model);
+            return model;
+        }
         #endregion
 
         #region  Deletes
@@ -57,13 +47,22 @@ namespace portal.webapi.Repository
         #endregion
 
         #region Retrieve
-        public abstract Task<TEntity> GetOneByIdAsync(string id);
+        public async Task<T> GetOneByIdAsync(string id)
+        {
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
+            T model = await Collection.Find(filter).FirstAsync();
+            return model;
+        }
         /// <summary>
         /// Returns a list of the latest amount of workouts based on the limit number passed in.
         /// </summary>
         /// <returns></returns>
-        public abstract Task<List<TEntity>> GetLatestAsync(int limit);
+        public async Task<List<T>> GetLatestAsync(int limit)
+        {
+            FilterDefinition<T> filter = Builders<T>.Filter.Exists("_id");
+            var sort = Builders<T>.Sort.Descending("workout_date");
+            return await Collection.Find(filter).Sort(sort).Limit(limit).ToListAsync();
+        }
         #endregion
-
     }
 }
