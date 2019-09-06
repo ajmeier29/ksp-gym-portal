@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using portal.webapi.Services;
-using Microsoft.AspNetCore.Mvc;
+using MongoDB;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.FileExtensions;
-using Microsoft.Extensions.Configuration.Json;
 using NUnit.Framework;
+using Moq;
 
 namespace portal.tests
 {
-    public class NoSqlDataAcessTests
+    public class RepositoryTests
     {
 
         private IConfiguration _configuration { get; set; }
@@ -26,7 +21,8 @@ namespace portal.tests
         [Test]
         public void TestEnvVarPass()
         {
-            Assert.True(_configuration["TESTDBUSER"].Equals("test-user"));
+
+            // Assert.True(_configuration["TESTDBUSER"].Equals("test-user"));
             // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
             // bool result = noSqlDataAccess.Connect();
             //Assert.Pass();
@@ -34,7 +30,7 @@ namespace portal.tests
         [Test]
         public void TestEnvVarFail()
         {
-            Assert.False(_configuration["TESTDBUSER"].Equals("test-usersss"));
+            // Assert.False(_configuration["TESTDBUSER"].Equals("test-usersss"));
             // NoSqlDataAccess noSqlDataAccess = new NoSqlDataAccess(_configuration);
             // bool result = noSqlDataAccess.Connect();
             //Assert.Pass();

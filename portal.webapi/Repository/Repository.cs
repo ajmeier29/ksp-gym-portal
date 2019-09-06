@@ -47,10 +47,15 @@ namespace portal.webapi.Repository
         #endregion
 
         #region Retrieve
+        
+        public async Task<List<T>> GetOne(FilterDefinition<T> filter) 
+        {
+            throw new NotImplementedException();
+        }
         public async Task<T> GetOneByIdAsync(string id)
         {
             FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
-            T model = await Collection.Find(filter).FirstAsync();
+            T model = await Collection.Find(filter).FirstOrDefaultAsync();
             return model;
         }
         /// <summary>

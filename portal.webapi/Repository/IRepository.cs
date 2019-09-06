@@ -14,7 +14,7 @@ namespace portal.webapi.Repository
         // IWorkoutsDatabaseSettings WorkoutDbSettings { get; set; }
         // IConfiguration Configuration { get; set; }
         #endregion
-        // List<T> Get();
+        Task<List<T>> GetOne(FilterDefinition<T> filter);
         Task<T> InsertOneAsync(T workout);
         Task<T> GetOneByIdAsync(string id);
         Task<List<T>> GetLatestAsync(int limit);

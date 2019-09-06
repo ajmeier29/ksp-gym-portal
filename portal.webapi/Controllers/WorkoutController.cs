@@ -25,7 +25,7 @@ namespace portal.webapi.Controllers
         public WorkoutController(WorkoutService workoutService)
         {
             _workoutService = workoutService;
-            _workoutRepository = _workoutService.GetRepository();
+            _workoutRepository = _workoutService.GetRepository(); 
         }
         // public WorkoutController(){
         //     var test = "";
