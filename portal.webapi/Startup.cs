@@ -27,6 +27,7 @@ namespace portal.webapi
         }
 
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -49,6 +50,17 @@ namespace portal.webapi
             // Add validations
             services.AddMvc().AddFluentValidation();
             services.AddTransient<IValidator<Workout>, WorkoutValidator>();
+
+            // CORS
+            // TODO: Remove AllowAnyOrigin or change it to only be added in the development enviornment
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +76,7 @@ namespace portal.webapi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
             app.UseMvc();
