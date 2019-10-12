@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/portal.webapi/ksp-portal.csproj"
+                "/Users/andy/Documents/VSCode_Projects/ksp/webfiles/ksp-portal/portal.webapi/ksp-portal.csproj"
             ],
             "problemMatcher": "$tsc"
         },

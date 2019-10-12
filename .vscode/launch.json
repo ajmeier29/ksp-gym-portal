@@ -28,7 +28,7 @@
             "name": "Web.Api",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            //"preLaunchTask": "build",
             "program": "${workspaceFolder}/portal.webapi/bin/Debug/netcoreapp2.2/ksp-portal.dll",
             "args": [],
             "cwd": "${workspaceFolder}",

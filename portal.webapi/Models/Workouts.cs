@@ -16,6 +16,8 @@ namespace portal.webapi.Models
         public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
         public DateTime? workout_date { get; set; }
         public string workout_image_url { get; set; }
+        public List<WorkoutLocation> locations { get; set; }
+        public List<WorkoutDevice> devices { get; set; }
         public List<Series> workout_series { get; set; }
     }
     public class NewWorkout
@@ -23,6 +25,8 @@ namespace portal.webapi.Models
         public string workout_name { get; set; }
         public DateTime workout_date { get; set; }
         public string workout_image_url { get; set; }
+        public List<WorkoutLocation> locations { get; set; }
+        public List<WorkoutDevice> devices { get; set; }
         public List<Series> workout_series { get; set; }
     }
     public class Series
@@ -31,7 +35,7 @@ namespace portal.webapi.Models
         [Display(Name = "SeriesNumber")]
         // [Range(1, int.MaxValue, ErrorMessage = "Your {0} Please enter a valid integer > 0!")]
         public int series_number { get; set; }
-        [Required]
+        // [Required(ErrorMessage="test error messagexxxxxyyyyyy")]
         public string series_tag { get; set; }
         [Required]
         public List<Exercise> exercises { get; set; }
@@ -53,13 +57,25 @@ namespace portal.webapi.Models
             // Workout Date Validations
             // RuleFor(x => x.workout_date).NotEqual(DateTime.Parse("0001-01-01T00:00:00")).WithMessage("Please enter a valid date!");
             // Workout Date was null
-            RuleFor(x => x.workout_date).Must(x => x!= null).WithMessage("A workout date must be set!!");
+            RuleFor(x => x.workout_date).Must(x => x != null).WithMessage("A workout date must be set!!");
             // Workout Date was previous date from current
             RuleFor(x => x.workout_date).GreaterThan(DateTime.Now).WithMessage($"Please enter a date > {DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}");
             // Workout Series
             // No Series information at all was sent
             RuleFor(x => x.workout_series).NotEmpty().WithMessage("No Series Information Was Entered!!");
             // Series Validations
+            // Rule for No Series tag
+            RuleFor(x => x.workout_series).Must(y =>
+            {
+                foreach (var series in y)
+                {
+                    if (String.IsNullOrEmpty(series.series_tag))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }).WithMessage("All series must have a tag name!");
             // Duplicate Series number
             RuleFor(x => x.workout_series).Must(y =>
             {
@@ -68,7 +84,7 @@ namespace portal.webapi.Models
             }
             ).WithMessage("Series Numbers cannot have the same value!");
             // Series numbers must be > 0
-            RuleFor(x => x.workout_series).Must(s => 
+            RuleFor(x => x.workout_series).Must(s =>
             {
                 var nubmerList = s.Select(n => n.series_number).ToList();
                 return !nubmerList.Any(x => x == 0);
@@ -85,7 +101,8 @@ namespace portal.webapi.Models
                     {
                         nubmerList.Add(exercise.exercise_number);
                     }
-                    if(nubmerList.Count() != nubmerList.Distinct().Count()){
+                    if (nubmerList.Count() != nubmerList.Distinct().Count())
+                    {
                         return false;
                     }
                 }
@@ -98,7 +115,8 @@ namespace portal.webapi.Models
                 {
                     foreach (Exercise exercise in series.exercises)
                     {
-                        if(exercise.exercise_number == 0){
+                        if (exercise.exercise_number == 0)
+                        {
                             return false;
                         }
                     }

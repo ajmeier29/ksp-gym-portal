@@ -58,6 +58,7 @@ namespace portal.webapi
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
+                        builder.AllowAnyHeader();
                         builder.AllowAnyOrigin();
                     });
             });
