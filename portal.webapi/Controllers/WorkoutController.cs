@@ -20,12 +20,12 @@ namespace portal.webapi.Controllers
     {
         // private RepositoryFactory _repositoryFactory {get;set;}
         private WorkoutService _workoutService { get; set; }
-        private IRepository<Workout> _workoutRepository {get; set;}
+        private IRepository<Workout> _workoutRepository { get; set; }
 
         public WorkoutController(WorkoutService workoutService)
         {
             _workoutService = workoutService;
-            _workoutRepository = _workoutService.GetRepository(); 
+            _workoutRepository = _workoutService.GetRepository();
         }
         // public WorkoutController(){
         //     var test = "";
@@ -43,6 +43,12 @@ namespace portal.webapi.Controllers
             Workout workout = await _workoutRepository.GetOneByIdAsync(id);
             return workout;
         }
+
+        // [HttpPost]
+        // public async Task<DeleteResult> DeleteOneRecordAsync(string id)
+        // {
+
+        // }
 
         [Route("[action]/{limit}")]
         [HttpGet]
@@ -66,7 +72,10 @@ namespace portal.webapi.Controllers
 
         // DELETE api/workout/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        { }
+        public async Task<DeleteResult> Delete(string id)
+        {
+            DeleteResult deleteResult = await _workoutRepository.DeleteRecordAsync(id);
+            return deleteResult;
+        }
     }
 }

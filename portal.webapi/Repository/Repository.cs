@@ -58,6 +58,13 @@ namespace portal.webapi.Repository
             T model = await Collection.Find(filter).FirstOrDefaultAsync();
             return model;
         }
+
+        public async Task<DeleteResult> DeleteRecordAsync(string id)
+        {
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
+            Task<DeleteResult> deleteResult  = Collection.DeleteOneAsync(filter);
+            return deleteResult.Result;
+        }
         /// <summary>
         /// Returns a list of the latest amount of workouts based on the limit number passed in.
         /// </summary>

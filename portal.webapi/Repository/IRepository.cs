@@ -18,6 +18,7 @@ namespace portal.webapi.Repository
         Task<T> InsertOneAsync(T workout);
         Task<T> GetOneByIdAsync(string id);
         Task<List<T>> GetLatestAsync(int limit);
+        Task<DeleteResult> DeleteRecordAsync(string id);
 
     }
 }
