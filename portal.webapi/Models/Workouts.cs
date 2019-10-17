@@ -14,21 +14,22 @@ namespace portal.webapi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
         public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
-        public DateTime? workout_date { get; set; }
-        public string workout_image_url { get; set; }
-        public List<WorkoutLocation> locations { get; set; }
-        public List<WorkoutDevice> devices { get; set; }
-        public List<Series> workout_series { get; set; }
-    }
-    public class NewWorkout
-    {
-        public string workout_name { get; set; }
         public DateTime workout_date { get; set; }
+        public List<DateTime> workout_times { get;set;}
         public string workout_image_url { get; set; }
         public List<WorkoutLocation> locations { get; set; }
         public List<WorkoutDevice> devices { get; set; }
         public List<Series> workout_series { get; set; }
     }
+    // public class NewWorkout
+    // {
+    //     public string workout_name { get; set; }
+    //     public DateTime workout_date { get; set; }
+    //     public string workout_image_url { get; set; }
+    //     public List<WorkoutLocation> locations { get; set; }
+    //     public List<WorkoutDevice> devices { get; set; }
+    //     public List<Series> workout_series { get; set; }
+    // }
     public class Series
     {
         [Required]
@@ -59,7 +60,7 @@ namespace portal.webapi.Models
             // Workout Date was null
             RuleFor(x => x.workout_date).Must(x => x != null).WithMessage("A workout date must be set!!");
             // Workout Date was previous date from current
-            RuleFor(x => x.workout_date).GreaterThan(DateTime.Now).WithMessage($"Please enter a date > {DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}");
+            //RuleFor(x => x.workout_date).GreaterThan(DateTime.Now).WithMessage($"Please enter a date > {DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}");
             // Workout Series
             // No Series information at all was sent
             RuleFor(x => x.workout_series).NotEmpty().WithMessage("No Series Information Was Entered!!");
