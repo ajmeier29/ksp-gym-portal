@@ -72,7 +72,7 @@ namespace portal.webapi.Repository
         public async Task<List<T>> GetLatestAsync(int limit)
         {
             FilterDefinition<T> filter = Builders<T>.Filter.Exists("_id");
-            var sort = Builders<T>.Sort.Descending("workout_date");
+            var sort = Builders<T>.Sort.Descending("date_added");
             return await Collection.Find(filter).Sort(sort).Limit(limit).ToListAsync();
         }
         #endregion

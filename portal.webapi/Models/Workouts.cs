@@ -21,15 +21,7 @@ namespace portal.webapi.Models
         public List<WorkoutDevice> devices { get; set; }
         public List<Series> workout_series { get; set; }
     }
-    // public class NewWorkout
-    // {
-    //     public string workout_name { get; set; }
-    //     public DateTime workout_date { get; set; }
-    //     public string workout_image_url { get; set; }
-    //     public List<WorkoutLocation> locations { get; set; }
-    //     public List<WorkoutDevice> devices { get; set; }
-    //     public List<Series> workout_series { get; set; }
-    // }
+
     public class Series
     {
         [Required]
