@@ -14,7 +14,7 @@ namespace portal.webapi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
         public string workout_name { get; set; } = $"Workout {DateTime.Now.ToString("MM/dd/yyyy | hh:mm")}";
-        public DateTime workout_date { get; set; }
+        public DateTime date_added { get; set; } = DateTime.Now;
         public List<DateTime> workout_times { get;set;}
         public string workout_image_url { get; set; }
         public List<WorkoutLocation> locations { get; set; }
@@ -58,7 +58,7 @@ namespace portal.webapi.Models
             // Workout Date Validations
             // RuleFor(x => x.workout_date).NotEqual(DateTime.Parse("0001-01-01T00:00:00")).WithMessage("Please enter a valid date!");
             // Workout Date was null
-            RuleFor(x => x.workout_date).Must(x => x != null).WithMessage("A workout date must be set!!");
+            //RuleFor(x => x.date_added).Must(x => x != null).WithMessage("A workout date must be set!!");
             // Workout Date was previous date from current
             //RuleFor(x => x.workout_date).GreaterThan(DateTime.Now).WithMessage($"Please enter a date > {DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}");
             // Workout Series
