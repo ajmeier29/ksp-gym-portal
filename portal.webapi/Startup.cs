@@ -59,6 +59,7 @@ namespace portal.webapi
                     builder =>
                     {
                         builder.AllowAnyHeader();
+                        builder.AllowAnyMethod();
                         builder.AllowAnyOrigin();
                     });
             });
