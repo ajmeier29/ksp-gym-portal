@@ -39,7 +39,6 @@ namespace portal.webapi.Models
         public int exercise_number { get; set; }
         [Required]
         public string exercise_name { get; set; }
-        [Required]
         public string exercise_reps { get; set; }
     }
 
