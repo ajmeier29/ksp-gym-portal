@@ -12,6 +12,6 @@ namespace portal.webapi.Repository
     public interface IRepositoryFactory
     {
         IMongoDatabaseFactory MongoDbFactory { get; set; }
-        IRepository<T> Create<T>(IConfiguration config, WorkoutsDatabaseSettings settings);
+        IRepository<Workout> Create<T>(IConfiguration config, WorkoutsDatabaseSettings settings);
     }
 }

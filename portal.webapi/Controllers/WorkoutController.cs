@@ -27,15 +27,17 @@ namespace portal.webapi.Controllers
             _workoutService = workoutService;
             _workoutRepository = _workoutService.GetRepository();
         }
-        // public WorkoutController(){
-        //     var test = "";
-        // }
-        // GET api/workout
-        // [HttpGet]
-        // public ActionResult<List<Workout>> Get()
-        // {
-        //     return _workoutService.Get<Workout>();
-        // }
+        // This endpoint will return the proper workout to display
+        // by filtering by the device id.
+        // GET api/workout/getdeviceworkout/{device_id}
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Workout>> GetDeviceWorkout(string id)
+        {
+            var workout = await _workoutRepository.GetDeviceWorkout(id);
+            return workout;
+        }
+
         // GET api/workout/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Workout>> Get(string id)

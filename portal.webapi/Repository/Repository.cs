@@ -11,20 +11,20 @@ using System.Threading;
 
 namespace portal.webapi.Repository
 {
-    public class Repository<T> : IRepository<T>
+    public class Repository : IRepository<Workout>
     {
         // public ILogger Logger { get; set; }
-        public IMongoCollection<T> Collection { get; set; }
-        public Repository(IMongoCollection<T> collection)
+        public IMongoCollection<Workout> Collection { get; set; }
+        public Repository(IMongoCollection<Workout> collection)
         {
             if(collection == null){
-                throw new InvalidOperationException("IMongoCollection<T> Collection is null in Repository object!");
+                throw new InvalidOperationException("IMongoCollection<Workout> Collection is null in Repository object!");
             }
             Collection = collection;
             // Logger = loggerFactory.CreateLogger("portal.webapi.Services.WorkoutService");;
         }
         
-        // public List<T> Get(IFindFluent<T,T> filterSearch)
+        // public List<Workout> Get(IFindFluent<Workout,Workout> filterSearch)
         // {
         //     var foundWorkout = Collection.Find(workout => workout.workout_name.Equals("Adult")).ToList();
         //     foundWorkout.ForEach(x =>
@@ -35,7 +35,7 @@ namespace portal.webapi.Repository
         // }
 
         #region  Inserts
-        public async Task<T> InsertOneAsync(T model)
+        public async Task<Workout> InsertOneAsync(Workout model)
         {
             await Collection.InsertOneAsync(model);
             return model;
@@ -47,21 +47,27 @@ namespace portal.webapi.Repository
         #endregion
 
         #region Retrieve
-        
-        public async Task<List<T>> GetOne(FilterDefinition<T> filter) 
+        public async Task<Workout> GetDeviceWorkout(string id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Workout>.Filter.ElemMatch(x => x.devices, x => x.id == id);
+            // filter = filter & Builders<Workout>.Filter.ElemMatch(x => x.workout_times, x => x == new DateTime(2019, 10, 26, 18, 00, 00));
+            var time = new DateTime(2019, 10, 26, 18, 00, 00);
+
+            filter = filter & Builders<Workout>.Filter.ElemMatch(x => x.workout_times, x => x == time);
+            Workout model = await Collection.Find(filter).FirstOrDefaultAsync();
+            var workouttime = model.workout_times;
+            return model;
         }
-        public async Task<T> GetOneByIdAsync(string id)
+        public async Task<Workout> GetOneByIdAsync(string id)
         {
-            FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
-            T model = await Collection.Find(filter).FirstOrDefaultAsync();
+            FilterDefinition<Workout> filter = Builders<Workout>.Filter.Eq("_id", ObjectId.Parse(id));
+            Workout model = await Collection.Find(filter).FirstOrDefaultAsync();
             return model;
         }
 
         public async Task<DeleteResult> DeleteRecordAsync(string id)
         {
-            FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
+            FilterDefinition<Workout> filter = Builders<Workout>.Filter.Eq("_id", ObjectId.Parse(id));
             Task<DeleteResult> deleteResult  = Collection.DeleteOneAsync(filter);
             return deleteResult.Result;
         }
@@ -69,10 +75,10 @@ namespace portal.webapi.Repository
         /// Returns a list of the latest amount of workouts based on the limit number passed in.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<T>> GetLatestAsync(int limit)
+        public async Task<List<Workout>> GetLatestAsync(int limit)
         {
-            FilterDefinition<T> filter = Builders<T>.Filter.Exists("_id");
-            var sort = Builders<T>.Sort.Descending("date_added");
+            FilterDefinition<Workout> filter = Builders<Workout>.Filter.Exists("_id");
+            var sort = Builders<Workout>.Sort.Descending("date_added");
             return await Collection.Find(filter).Sort(sort).Limit(limit).ToListAsync();
         }
         #endregion

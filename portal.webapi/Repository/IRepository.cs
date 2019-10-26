@@ -14,11 +14,11 @@ namespace portal.webapi.Repository
         // IWorkoutsDatabaseSettings WorkoutDbSettings { get; set; }
         // IConfiguration Configuration { get; set; }
         #endregion
-        Task<List<T>> GetOne(FilterDefinition<T> filter);
         Task<T> InsertOneAsync(T workout);
         Task<T> GetOneByIdAsync(string id);
         Task<List<T>> GetLatestAsync(int limit);
         Task<DeleteResult> DeleteRecordAsync(string id);
+        Task<T> GetDeviceWorkout(string id);
 
     }
 }

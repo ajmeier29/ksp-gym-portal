@@ -49,11 +49,11 @@ namespace portal.webapi.Repository
             MongoDbFactory = dbFactory;
         }
 
-        public IRepository<T> Create<T>(IConfiguration config, WorkoutsDatabaseSettings settings)
+        public IRepository<Workout> Create<T>(IConfiguration config, WorkoutsDatabaseSettings settings)
         {
             IMongoDatabase db = MongoDbFactory.Connect(config, settings);
-            var collection = db.GetCollection<T>(settings.WorkoutsCollectionName);
-            return new Repository<T>(collection);
+            var collection = db.GetCollection<Workout>(settings.WorkoutsCollectionName);
+            return new Repository(collection);
         }
     }
 }
