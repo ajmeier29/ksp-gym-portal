@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace portal.webapi.Controllers
 {
@@ -21,11 +22,13 @@ namespace portal.webapi.Controllers
         // private RepositoryFactory _repositoryFactory {get;set;}
         private WorkoutService _workoutService { get; set; }
         private IRepository<Workout> _workoutRepository { get; set; }
+        private ILogger<WorkoutController> _logger;
 
-        public WorkoutController(WorkoutService workoutService)
+        public WorkoutController(WorkoutService workoutService, ILogger<WorkoutController> logger)
         {
             _workoutService = workoutService;
             _workoutRepository = _workoutService.GetRepository();
+            _logger = logger;
         }
         // This endpoint will return the proper workout to display
         // by filtering by the device id.
@@ -49,6 +52,7 @@ namespace portal.webapi.Controllers
         [HttpGet]
         public ActionResult Get()
         {
+            _logger.LogInformation("Entering WorkoutController.Get");
             return Ok("Hello World");
         }
 
