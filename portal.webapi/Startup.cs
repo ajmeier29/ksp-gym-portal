@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -35,7 +36,7 @@ namespace portal.webapi
             services.AddApplicationInsightsTelemetry();
 
             // The following will be picked up by Application Insights.
-            _logger.LogInformation("Logging from ConfigureServices.");
+            _logger.LogInformation("new Logging from ConfigureServices.");
             services.Configure<WorkoutsDatabaseSettings>(
                     // Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
                     Configuration);
@@ -68,14 +69,15 @@ namespace portal.webapi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (environmentName.Contains("Development"))
             {
-                _logger.LogInformation("Configuring for Development environment");
+                _logger.LogInformation("new Configuring for Development environment");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                _logger.LogInformation("Configuring for Production environment");
+                _logger.LogInformation("new Configuring for Production environment");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
