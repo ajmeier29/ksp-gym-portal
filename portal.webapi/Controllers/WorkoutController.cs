@@ -46,6 +46,12 @@ namespace portal.webapi.Controllers
             return workout;
         }
 
+        [HttpGet]
+        public ActionResult Get()
+        {
+            return Ok("Hello World");
+        }
+
         // [HttpPost]
         // public async Task<DeleteResult> DeleteOneRecordAsync(string id)
         // {
