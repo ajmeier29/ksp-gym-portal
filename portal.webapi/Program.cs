@@ -31,7 +31,9 @@ namespace portal.webapi
                 .UseStartup<Startup>()
                 .ConfigureLogging(builder =>
                     {
-                        builder.AddApplicationInsights("f10851eb-ebfb-4d39-bc66-bc2abfe8e6b3");
+                        // Grab instrumentation key from the env vars
+                        var instrumentationKey = configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"].Split("=").Last();
+                        builder.AddApplicationInsights(instrumentationKey);
                         // Adds fileter to send anything information related or above to insights
                         builder.AddFilter<Microsoft.Extensions.Logging.ApplicationInsights.ApplicationInsightsLoggerProvider>
                             ("", LogLevel.Information);
