@@ -42,20 +42,16 @@ namespace portal.webapi
             services.Configure<WorkoutsDatabaseSettings>(
                     // Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
                     Configuration);
-
+                    
+            #region  Workout Repository DI
             services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
-
-            services.ConfigureAll<IMongoCollection<Workout>>(x =>
-            {
-                WorkoutsDatabaseSettings settings;
-                IMongoDatabase db = GetMongoDatabase(Configuration, out settings);
-                var collection = db.GetCollection<Workout>(settings.WorkoutsCollectionName);
-            });
-
+            WorkoutsDatabaseSettings settings;  
+            services.AddSingleton<IMongoCollection<Workout>>(GetMongoDatabase(Configuration, out settings).GetCollection<Workout>(settings.WorkoutsCollectionName));
             services.AddTransient<IWorkoutRepository, WorkoutRepository>();
+            #endregion
             
-            services.AddSingleton<WorkoutService>(sp => new WorkoutService(new ProductionRepository(), Configuration, new WorkoutsDatabaseSettings()));
+            //services.AddSingleton<WorkoutService>(sp => new WorkoutService(new ProductionRepository(), Configuration, new WorkoutsDatabaseSettings()));
             // services.AddSingleton<WorkoutRepository>(sp => new WorkoutRepository(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -79,7 +75,7 @@ namespace portal.webapi
 
         public IMongoDatabase GetMongoDatabase(IConfiguration config, out WorkoutsDatabaseSettings settings)
         {
-            settings = new WorkoutsDatabaseSettings;
+            settings = new WorkoutsDatabaseSettings();
             if(config == null)
             {
                 throw new InvalidOperationException("No IConfiguration found in ProductionRepository");

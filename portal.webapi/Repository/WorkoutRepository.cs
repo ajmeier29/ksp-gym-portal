@@ -13,15 +13,13 @@ namespace portal.webapi.Repository
 {
     public class WorkoutRepository : IWorkoutRepository
     {
-        private ILogger<WorkoutRepository> _logger { get; set; }
         public IMongoCollection<Workout> Collection { get; set; }
-        public WorkoutRepository(IMongoCollection<Workout> collection, ILogger<WorkoutRepository> logger)
+        public WorkoutRepository(IMongoCollection<Workout> collection)
         {
             if(collection == null){
                 throw new InvalidOperationException("IMongoCollection<Workout> Collection is null in Repository object!");
             }
             Collection = collection;
-            _logger = logger;
             // Logger = loggerFactory.CreateLogger("portal.webapi.Services.WorkoutService");;
         }
         
@@ -78,7 +76,6 @@ namespace portal.webapi.Repository
         /// <returns></returns>
         public async Task<List<Workout>> GetLatestAsync(int limit)
         {
-            _logger.LogInformation($"GetLatestAsync was called with a limite of {limit}");
             FilterDefinition<Workout> filter = Builders<Workout>.Filter.Exists("_id");
             var sort = Builders<Workout>.Sort.Descending("date_added");
             return await Collection.Find(filter).Sort(sort).Limit(limit).ToListAsync();

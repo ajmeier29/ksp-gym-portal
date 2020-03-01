@@ -19,15 +19,12 @@ namespace portal.webapi.Controllers
     [ApiController]
     public class WorkoutController : ControllerBase
     {
-        // private RepositoryFactory _repositoryFactory {get;set;}
-        private WorkoutService _workoutService { get; set; }
-        private IRepository<Workout> _workoutRepository { get; set; }
+        private IWorkoutRepository _workoutRepository { get; set; }
         private ILogger<WorkoutController> _logger;
 
-        public WorkoutController(WorkoutService workoutService, ILogger<WorkoutController> logger)
+        public WorkoutController(IWorkoutRepository repository, ILogger<WorkoutController> logger)
         {
-            _workoutService = workoutService;
-            _workoutRepository = _workoutService.GetRepository();
+            _workoutRepository = repository;
             _logger = logger;
         }
         // This endpoint will return the proper workout to display
@@ -67,6 +64,7 @@ namespace portal.webapi.Controllers
         // Get api/workout/GetLatestWorkoutsLimitAsync/2
         public async Task<ActionResult<List<Workout>>> GetLatestWorkoutsLimitAsync(int limit)
         {
+            _logger.LogInformation($"Entering GetLatestWorkoutsLimitAsync with a limit of: {limit}");
             return await _workoutRepository.GetLatestAsync(limit);
         }
 
