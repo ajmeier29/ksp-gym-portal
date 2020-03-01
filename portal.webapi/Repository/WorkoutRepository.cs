@@ -11,17 +11,17 @@ using System.Threading;
 
 namespace portal.webapi.Repository
 {
-    public class Repository : IRepository<Workout>
+    public class WorkoutRepository : IWorkoutRepository
     {
-        private ILogger _logger { get; set; }
+        private ILogger<WorkoutRepository> _logger { get; set; }
         public IMongoCollection<Workout> Collection { get; set; }
-        public Repository(IMongoCollection<Workout> collection)
+        public WorkoutRepository(IMongoCollection<Workout> collection, ILogger<WorkoutRepository> logger)
         {
             if(collection == null){
                 throw new InvalidOperationException("IMongoCollection<Workout> Collection is null in Repository object!");
             }
             Collection = collection;
-            //_logger = logger;
+            _logger = logger;
             // Logger = loggerFactory.CreateLogger("portal.webapi.Services.WorkoutService");;
         }
         

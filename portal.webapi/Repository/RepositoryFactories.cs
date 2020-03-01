@@ -47,13 +47,14 @@ namespace portal.webapi.Repository
                 throw new ArgumentException("dbFactory was null in RepositoryFactory!!");
             }
             MongoDbFactory = dbFactory;
+
         }
 
         public IRepository<Workout> Create<T>(IConfiguration config, WorkoutsDatabaseSettings settings)
         {
             IMongoDatabase db = MongoDbFactory.Connect(config, settings);
             var collection = db.GetCollection<Workout>(settings.WorkoutsCollectionName);
-            return new Repository(collection);
+            return new WorkoutRepository(collection);
         }
     }
 }
