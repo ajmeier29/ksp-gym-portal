@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using System;
+using System.Linq;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -40,11 +42,16 @@ namespace portal.webapi
             services.Configure<WorkoutsDatabaseSettings>(
                     // Configuration.GetSection(nameof(WorkoutsDatabaseSettings)));
                     Configuration);
-
+                    
+            #region  Workout Repository DI
             services.AddSingleton<IWorkoutsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WorkoutsDatabaseSettings>>().Value);
+            WorkoutsDatabaseSettings settings;  
+            services.AddSingleton<IMongoCollection<Workout>>(GetMongoDatabase(Configuration, out settings).GetCollection<Workout>(settings.WorkoutsCollectionName));
+            services.AddTransient<IWorkoutRepository, WorkoutRepository>();
+            #endregion
             
-            services.AddSingleton<WorkoutService>(sp => new WorkoutService(new ProductionRepository(), Configuration, new WorkoutsDatabaseSettings()));
+            //services.AddSingleton<WorkoutService>(sp => new WorkoutService(new ProductionRepository(), Configuration, new WorkoutsDatabaseSettings()));
             // services.AddSingleton<WorkoutRepository>(sp => new WorkoutRepository(Configuration, new WorkoutsDatabaseSettings(), _loggerFactory));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -64,6 +71,31 @@ namespace portal.webapi
                         builder.AllowAnyOrigin();
                     });
             });
+        }
+
+        public IMongoDatabase GetMongoDatabase(IConfiguration config, out WorkoutsDatabaseSettings settings)
+        {
+            settings = new WorkoutsDatabaseSettings();
+            if(config == null)
+            {
+                throw new InvalidOperationException("No IConfiguration found in ProductionRepository");
+            }
+            if(settings == null)
+            {
+                throw new InvalidOperationException("No WorkoutsDatabaseSettings found in ProductionRepository");
+            }
+            string settingsObjectName = settings.GetType().ToString().Split('.').Last();
+            // Then bind it to the IWorkoutDatabaseSettings object
+            config.GetSection(settingsObjectName).Bind(settings);
+            // Init connection string and connect to db
+            settings.ConnectionString = ModifyMongoConnectionString(settings, config);
+            MongoClient _client = new MongoClient(settings.ConnectionString);
+            return _client.GetDatabase(settings.DatabaseName);
+        }
+        public string ModifyMongoConnectionString(WorkoutsDatabaseSettings settings, IConfiguration config)
+        {
+            ConfigurationService service = new ConfigurationService(settings, config);
+            return service.ConnectionStringBuilder();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
